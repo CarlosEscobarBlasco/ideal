@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ideal</string>
+    <string name="title_activity_create_idea">CreateIdea</string>
+    <string-array name="tags">
+        <item>Science</item>
+        <item>Marketing</item>
+        <item>Technology</item>
+    </string-array>
+</resources>
