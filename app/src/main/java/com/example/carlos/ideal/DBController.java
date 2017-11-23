@@ -41,6 +41,15 @@ public class DBController {
         return 0;
     }
 
+    public long updateUser(int id, ContentValues value) {
+        try {
+            return db.update("user", value, "id = ?", new String[]{id+""});
+        } catch (Exception e) {
+
+        }
+        return 0;
+    }
+
     public User getUser(String name) {
 
         Cursor cursor = db.rawQuery("SELECT * FROM user WHERE name = ?", new String[]{name});

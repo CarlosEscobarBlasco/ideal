@@ -21,7 +21,10 @@
         <activity android:name=".SignInActivity" />
         <activity android:name=".PersonalSpaceActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LogInActivity"></activity>
+        <activity android:name=".LogInActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".ChangePhotoActivity" />
+        <activity android:name=".ChangePasswordActivity"></activity>
     </application>
 
 </manifest>
