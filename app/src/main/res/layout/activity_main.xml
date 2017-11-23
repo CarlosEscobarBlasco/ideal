@@ -4,39 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.carlos.ideal.MainActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="You don't have nay ideas. Please create a new one"
-        android:gravity="center_vertical"
-        android:visibility="invisible"
-        android:textAlignment="center" />
+    tools:context="com.example.carlos.ideal.Activities.MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="104dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-
-        <ListView
-            android:id="@+id/list"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="490dp"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="2dp" />
+            android:layout_height="100dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/logo"
+            android:layout_marginBottom="90dp"/>
 
 
-        <Button
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/createIdea"
-            android:text="Create Idea" />
+            android:text="My Profile"
+            app:bootstrapBrand="primary"
+            app:bootstrapSize="xl"
+            app:roundedCorners="true"
+            android:layout_margin="10dp"
+            android:id="@+id/myProfileButton"
+            />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Ideas"
+            app:bootstrapBrand="danger"
+            app:bootstrapSize="xl"
+            app:roundedCorners="true"
+            android:layout_margin="10dp"
+            android:id="@+id/myIdeasButton"
+            />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Universe of Ideas"
+            app:bootstrapBrand="warning"
+            app:bootstrapSize="xl"
+            app:roundedCorners="true"
+            android:layout_margin="10dp"
+            android:id="@+id/universeOfIdeasButton"
+            />
+
     </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

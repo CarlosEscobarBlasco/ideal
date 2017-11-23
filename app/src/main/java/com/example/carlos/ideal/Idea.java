@@ -4,7 +4,7 @@ package com.example.carlos.ideal;
  * Created by carlos on 15/11/2017.
  */
 
-class Idea {
+public class Idea {
     private int id;
     private String title;
     private String shortDescription;

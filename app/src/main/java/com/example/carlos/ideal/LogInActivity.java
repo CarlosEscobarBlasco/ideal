@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.carlos.ideal.Activities.MainActivity;
+
 public class LogInActivity extends AppCompatActivity {
+
     EditText username;
     EditText password;
 
@@ -27,15 +29,16 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBController dbController = DBController.getInstance(getApplicationContext());
-                 if (dbController.getUser(username.getText().toString(), password.getText().toString()) == null) {
-                     // fail authentification
-                     Toast.makeText(getBaseContext(), "Username or Password incorrect!",
-                             Toast.LENGTH_SHORT).show();
-                     return;
-                 }
+                if (dbController.getUser(username.getText().toString(), password.getText().toString()) == null) {
+                    // fail authentification
+                    Toast.makeText(getBaseContext(), "Username or Password incorrect!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 User user = dbController.getUser(username.getText().toString());
-                Intent intent = new Intent(getBaseContext(), PersonalSpaceActivity.class);
-                intent.putExtra("id_user", user.getId());
+                Log.d("login","###"+user.getId());
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                AppController.getInstance().setUser_id(user.getId());
                 getBaseContext().startActivity(intent);
 
 

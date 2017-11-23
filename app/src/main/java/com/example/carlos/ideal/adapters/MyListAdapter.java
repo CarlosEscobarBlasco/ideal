@@ -26,7 +26,7 @@ public abstract class MyListAdapter extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = vi.inflate(R_layout_IdView, null);
         }
-        input(list.get(position), view);
+        input(list.get(position), view, position);
         return view;
     }
 
@@ -49,6 +49,6 @@ public abstract class MyListAdapter extends BaseAdapter {
      * @param input La enrada que será la asociada articleView la view. La entrada es del tipo del paquete/handler
      * @param view View particular que contendrá los datos del paquete/handler
      */
-    public abstract void input(Object input, View view);
+    public abstract void input(Object input, View view, int position);
 
 }

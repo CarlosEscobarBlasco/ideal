@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center"
     android:descendantFocusability="blocksDescendants"
@@ -11,7 +12,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="0.9">
+        android:id="@+id/myIdeaRow"
+        android:layout_weight="0.8">
 
         <TextView
             android:id="@+id/rowTextTitle"
@@ -32,39 +34,17 @@
             android:textColor="@android:color/black"/>
     </LinearLayout>
 
-    <LinearLayout
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="0.1">
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/upVoteButton"
-            android:layout_gravity="center"
-            android:background="@null"
-            android:layout_weight="0.33"
-            android:src="@mipmap/arrow_up"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:id="@+id/voteValue"
-            android:layout_height="0dp"
-            android:layout_weight="0.33"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="3"/>
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:id="@+id/downVoteButton"
-            android:layout_weight="0.33"
-            android:background="@null"
-            android:src="@mipmap/arrow_down"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:text="delete"
+        android:gravity="center"
+        app:bootstrapBrand="danger"
+        app:bootstrapSize="md"
+        app:roundedCorners="true"
+        android:id="@+id/deleteButton"
+        />
 
 
 

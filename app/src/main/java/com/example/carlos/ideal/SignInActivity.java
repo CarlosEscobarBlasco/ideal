@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.carlos.ideal.Activities.MainActivity;
+
 public class SignInActivity extends AppCompatActivity {
     EditText username;
     EditText password;
@@ -16,7 +18,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in2);
+        setContentView(R.layout.activity_sign_in);
         Button buttonRegister = (Button)findViewById(R.id.register);
         username = (EditText) findViewById (R.id.username);
         password = (EditText) findViewById (R.id.password);
@@ -41,10 +43,10 @@ public class SignInActivity extends AppCompatActivity {
                         return;
                     }
 
-                    long i = dbController.createUser(username.getText().toString(), email.getText().toString(), password.getText().toString(), null, null);
+                    int user_id = (int)dbController.createUser(username.getText().toString(), email.getText().toString(), password.getText().toString(), null, null);
 
-                    Intent intent = new Intent(getBaseContext(), PersonalSpaceActivity.class);
-                    intent.putExtra("id_user", i);
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    AppController.getInstance().setUser_id(user_id);
                     getBaseContext().startActivity(intent);
 
                 } catch (Exception e) {

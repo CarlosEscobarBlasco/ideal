@@ -4,13 +4,16 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.carlos.ideal.Activities.MainActivity;
+
 public class EditProfileActivity extends AppCompatActivity {
-    int id_user;
+    int user_id;
     EditText description;
     EditText name;
     EditText email;
@@ -19,15 +22,19 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        getSupportActionBar().setTitle("Edit profile");
+//        getSupportActionBar().setTitle("Edit profile");
 
         description = (EditText) findViewById(R.id.editText);
         name = (EditText) findViewById(R.id.editText3);
         email = (EditText) findViewById(R.id.editText4);
 
-        id_user = this.getIntent().getExtras().getInt("id_user");
+        user_id = AppController.getInstance().getUser_id();
         DBController dbController = DBController.getInstance(getApplicationContext());
-        User u = dbController.getUser(id_user);
+        Log.d("user","###"+ user_id);
+
+        User u = dbController.getUser(user_id);
+
+        Log.d("user","###"+u);
 
         description.setText(u.getDescription());
         name.setText(u.getName());
@@ -37,23 +44,23 @@ public class EditProfileActivity extends AppCompatActivity {
         Button buttonChangePassword = (Button)findViewById(R.id.button3);
         Button buttonSave = (Button)findViewById(R.id.button4);
 
-        buttonChangePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ChangePhotoActivity.class);
-                intent.putExtra("id_user", id_user);
-                getBaseContext().startActivity(intent);
-            }
-        });
-
-        buttonChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ChangePasswordActivity.class);
-                intent.putExtra("id_user", id_user);
-                getBaseContext().startActivity(intent);
-            }
-        });
+//        buttonChangePhoto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getBaseContext(), ChangePhotoActivity.class);
+//                intent.putExtra("user_id", user_id);
+//                getBaseContext().startActivity(intent);
+//            }
+//        });
+//
+//        buttonChangePassword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getBaseContext(), ChangePasswordActivity.class);
+//                intent.putExtra("user_id", user_id);
+//                getBaseContext().startActivity(intent);
+//            }
+//        });
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +71,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 value.put("email", email.getText().toString());
 
                 DBController dbController = DBController.getInstance(getApplicationContext());
-                dbController.updateUser(id_user, value);
+                dbController.updateUser(user_id, value);
 
                 Toast.makeText(getBaseContext(), "Modifications done",
                         Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getBaseContext(), PersonalSpaceActivity.class);
-                intent.putExtra("id_user", id_user);
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                intent.putExtra("user_id", user_id);
                 getBaseContext().startActivity(intent);
             }
         });
