@@ -6,7 +6,7 @@ import android.media.Image;
  * Created by carlos on 15/11/2017.
  */
 
-class User {
+public class User {
     private int id;
     private String name;
     private String password;

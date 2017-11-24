@@ -1,15 +1,12 @@
-package com.example.carlos.ideal.Activities;
+package com.example.carlos.ideal.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
-import com.example.carlos.ideal.EditProfileActivity;
 import com.example.carlos.ideal.R;
 
 public class MainActivity extends AppCompatActivity {

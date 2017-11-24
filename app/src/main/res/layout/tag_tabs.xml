@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.carlos.ideal.Activities.IdeasListActivity">
+    tools:context="com.example.carlos.ideal.activities.IdeasListActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

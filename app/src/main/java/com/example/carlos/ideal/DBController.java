@@ -179,6 +179,7 @@ public class DBController {
         Log.d("---",value+"");
         return value;
     }
+
     public boolean canUserUpVote(int idea_id, int user_id){
         return getUserVotesOfTheIdea(idea_id,user_id)<1;
     }
@@ -209,61 +210,74 @@ public class DBController {
         try {
             return db.update("user", value, "id = ?", new String[]{id+""});
         } catch (Exception e) {
-
+            return -1;
         }
-        return 0;
     }
 
     public User getUser(String name) {
-
-        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE name = ?", new String[]{name});
+        String query = "SELECT * FROM user WHERE name = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{name});
         if (cursor.moveToNext()) {
             int id = Integer.parseInt(cursor.getString(0));
             String email = cursor.getString(2);
             String password = cursor.getString(3);
             String description = cursor.getString(5);
-            User u = new User(id, name, password, email, description);
+            User user = new User(id, name, password, email, description);
             cursor.close();
-            return u;
+            return user;
         }
         cursor.close();
         return null;
     }
 
+    public int getIdOfUser(String name, String password){
+        String query ="SELECT id FROM user WHERE name = ? AND password= ?";
+        Cursor cursor = db.rawQuery(query,new String[]{name,password});
+        int id=0;
+        if (cursor.moveToFirst())
+        {
+            do{
+                id = cursor.getInt(cursor.getColumnIndex("id"));
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return id;
+    }
+
     public User getUser(String name, String pwd) {
 
-        User u = getUser(name);
-        if (u == null) {
+        User user = getUser(name);
+        if (user == null) {
             return null;
         }
-        if (u.getPassword() == null) {
+        if (user.getPassword() == null) {
             return null;
         }
-        if (u.getPassword().equals(pwd)) {
-            return u;
+        if (user.getPassword().equals(pwd)) {
+            return user;
         }
         return null;
     }
 
-    public User getUser(int i) {
-
-        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE id = ?", new String[]{"" + i});
+    public User getUser(int id) {
+        String query = "SELECT * FROM user WHERE id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{"" + id});
         if (cursor.moveToNext()) {
             String name = cursor.getString(1);
             String email = cursor.getString(2);
             String password = cursor.getString(3);
             String description = cursor.getString(5);
-            User u = new User(i, name, password, email, description);
+            User user = new User(id, name, password, email, description);
             cursor.close();
-            return u;
+            return user;
         }
         cursor.close();
         return null;
     }
 
     public User getUserFromMail(String email) {
-
-        Cursor cursor = db.rawQuery("SELECT * FROM user WHERE email = ?", new String[]{email});
+        String query ="SELECT * FROM user WHERE email = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{email});
         if (cursor.moveToNext()) {
             int id = Integer.parseInt(cursor.getString(0));
             String name = cursor.getString(1);

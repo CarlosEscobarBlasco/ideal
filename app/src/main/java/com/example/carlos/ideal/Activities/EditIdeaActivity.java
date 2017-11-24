@@ -1,4 +1,4 @@
-package com.example.carlos.ideal.Activities;
+package com.example.carlos.ideal.activities;
 
 import android.content.Intent;
 import android.graphics.Color;

@@ -9,23 +9,21 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".WelcomeActivity" >
+
+        <activity android:name=".activities.LogInActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.MainActivity"/>
-
-        <activity android:name=".Activities.CreateIdeaActivity" />
-        <activity android:name=".Activities.EditIdeaActivity" />
-        <activity android:name=".Activities.IdeasListActivity" />
-        <activity android:name=".Activities.MyIdeasActivity" />
-        <activity android:name=".LogInActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.CreateIdeaActivity" />
+        <activity android:name=".activities.EditIdeaActivity" />
+        <activity android:name=".activities.IdeasListActivity" />
+        <activity android:name=".activities.MyIdeasActivity" />
+        <activity android:name=".activities.SignInActivity" />
+        <activity android:name=".activities.EditProfileActivity" />
     </application>
 
 </manifest>

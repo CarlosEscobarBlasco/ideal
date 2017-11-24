@@ -1,4 +1,4 @@
-package com.example.carlos.ideal.Activities;
+package com.example.carlos.ideal.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
