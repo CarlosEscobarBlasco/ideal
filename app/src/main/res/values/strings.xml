@@ -7,6 +7,13 @@
         <item>Technology</item>
         <item>Education</item>
     </string-array>
+    <string-array name="tags2">
+        <item>Contributions</item>
+        <item>Science</item>
+        <item>Marketing</item>
+        <item>Technology</item>
+        <item>Education</item>
+    </string-array>
     <string name="title_activity_navigation_drawer_example">NavigationDrawerExample</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -14,4 +21,10 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_my_ideas">MyIdeasActivity</string>
+    <string name="title_activity_inside_idea">InsideIdea</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_users_access">UsersAccessActivity</string>
 </resources>

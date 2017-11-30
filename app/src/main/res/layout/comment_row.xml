@@ -1,54 +1,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center"
     android:descendantFocusability="blocksDescendants"
     android:id="@+id/row"
-    android:weightSum="1"
-    android:background="@drawable/row_border">
+    android:weightSum="1">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/myIdeaRow"
-        android:layout_weight="0.8">
+        android:id="@+id/ideaLayout"
+        android:background="@drawable/rounded_loyout"
+        android:layout_margin="10dp">
 
         <TextView
-            android:id="@+id/rowTextTitle"
+            android:id="@+id/commentOwner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:text=""
+            android:padding="10dp"
+            android:text="comment owner"
             android:textStyle="bold"
             android:textSize="20dp"
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/rowTextShortDescription"
+            android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:padding="5dp"
-            android:text=""
+            android:layout_marginLeft="5dp"
+            android:text="comment"
             android:textColor="@android:color/black"/>
     </LinearLayout>
-
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:text="delete"
-        android:gravity="center"
-        app:bootstrapBrand="danger"
-        app:bootstrapSize="md"
-        app:roundedCorners="true"
-        android:id="@+id/deleteButton"
-        />
-
-
-
 
 
 </LinearLayout>

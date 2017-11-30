@@ -6,10 +6,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +70,9 @@ public class IdeasListActivity extends AppCompatActivity {
 
     private void initTabs(TabLayout tabLayout) {
 
-        for (String tab: getResources().getStringArray(R.array.tags)) {
-            tabLayout.addTab(tabLayout.newTab().setText(tab));
+        for (String tabTitle: getResources().getStringArray(R.array.tags2)) {
+            tabLayout.addTab(tabLayout.newTab().setText(tabTitle));
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
     }
 
@@ -104,9 +105,15 @@ public class IdeasListActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_idea_list, container, false);
-            String tag = getResources().getStringArray(R.array.tags)[getArguments().getInt(ARG_SECTION_NUMBER)-1];
+            int tab = getArguments().getInt(ARG_SECTION_NUMBER)-1;
             DBController dbController = DBController.getInstance(getContext());
-            ArrayList<Idea> ideas = dbController.getIdeasFromTag(tag);
+            ArrayList<Idea> ideas;
+            if(tab == 0){
+                ideas = dbController.getContributionIdeas(user_id);
+            }else {
+                String tag = getResources().getStringArray(R.array.tags2)[tab];
+                ideas = dbController.getIdeasFromTag(tag);
+            }
             loadList(ideas,rootView);
             return rootView;
         }
@@ -117,7 +124,7 @@ public class IdeasListActivity extends AppCompatActivity {
                 @Override
                 public void input(final Object input, View view, int position) {
                     LinearLayout layout = view.findViewById(R.id.row);
-                    layout.setBackgroundColor(position%2==0? ResourcesCompat.getColor(getResources(), R.color.white, null):ResourcesCompat.getColor(getResources(), R.color.lightGrey, null));
+//                    layout.setBackgroundColor(position%2==0? ResourcesCompat.getColor(getResources(), R.color.white, null):ResourcesCompat.getColor(getResources(), R.color.lightGrey, null));
                     TextView rowTextView = view.findViewById(R.id.rowTextTitle);
                     TextView shortDescription = view.findViewById(R.id.rowTextShortDescription);
                     rowTextView.setText(((Idea) input).getTitle());
@@ -125,6 +132,23 @@ public class IdeasListActivity extends AppCompatActivity {
                     TextView voteValue = view.findViewById(R.id.voteValue);
                     voteButtons(view, ((Idea) input),voteValue);
                     updateVoteValue(((Idea) input), voteValue);
+
+                    LinearLayout ideaLayout = view.findViewById(R.id.ideaLayout);
+                    ideaLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            DBController dbController = DBController.getInstance(getContext());
+                            if(dbController.hasAccess(user_id,((Idea) input).getId()) || ((Idea) input).getOwnerId() == user_id){
+                                Intent intent = new Intent(getContext(), InsideIdea.class);
+                                intent.putExtra( "idea_id", ((Idea) input).getId());
+                                startActivity(intent);
+                            }else {
+                                Intent intent = new Intent(getContext(), IdeaWithoutAccess.class);
+                                intent.putExtra( "idea_id", ((Idea) input).getId());
+                                startActivity(intent);
+                            }
+                        }
+                    });
                 }
 
             });
@@ -188,7 +212,7 @@ public class IdeasListActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return getResources().getStringArray(R.array.tags).length;
+            return getResources().getStringArray(R.array.tags2).length;
         }
     }
 }

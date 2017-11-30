@@ -38,6 +38,8 @@ public class CreateIdeaActivity extends AppCompatActivity {
     }
 
     private void initButtons() {
+        Button accessButton = findViewById(R.id.accessButton);
+        accessButton.setVisibility(View.GONE);
         creteIdeaButton();
     }
 

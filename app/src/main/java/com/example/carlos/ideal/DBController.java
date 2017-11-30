@@ -291,4 +291,122 @@ public class DBController {
         return null;
     }
 
+    public boolean hasRequestedAccess(int idea_id, int user_id) {
+        String query ="SELECT * FROM requesters WHERE requester = ? AND idea = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{user_id+"",idea_id+""});
+        assert cursor != null;
+        boolean result = cursor.getCount()>0;
+        cursor.close();
+        return  result;
+
+    }
+
+    public void requestAccess(int user_id, int idea_id) {
+        String query = "INSERT INTO requesters (requester, idea) VALUES(?,?)";
+        db.execSQL(query, new String[]{user_id+"",idea_id+""});
+    }
+
+    public boolean hasAccess(int user_id, int idea_id) {
+        String query ="SELECT * FROM contributors WHERE contributor = ? AND idea = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{user_id+"",idea_id+""});
+        assert cursor != null;
+        boolean result = cursor.getCount()>0;
+        cursor.close();
+        return  result;
+    }
+
+    public ArrayList<User> getUsersRequests(int idea_id) {
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM requesters WHERE idea = ?";
+        Cursor cursor = db.rawQuery(query,new String[]{idea_id+""});
+        while (cursor.moveToNext()){
+            int user_id = cursor.getInt(cursor.getColumnIndex("requester"));
+
+            users.add(getUser(user_id));
+        }
+        cursor.close();
+        return users;
+    }
+
+    public ArrayList<User> getAllowedUsers(int idea_id) {
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM contributors WHERE idea = ?";
+        Cursor cursor = db.rawQuery(query,new String[]{idea_id+""});
+        while (cursor.moveToNext()){
+            int user_id = cursor.getInt(cursor.getColumnIndex("contributor"));
+            users.add(getUser(user_id));
+        }
+        cursor.close();
+        return users;
+    }
+
+    public void accepRequest(int user_id, int idea_id) {
+        String query = "INSERT INTO contributors (contributor, idea) VALUES(?,?)";
+        db.execSQL(query, new String[]{user_id+"",idea_id+""});
+
+        query = "DELETE FROM requesters WHERE requester =? AND idea =? ";
+        db.execSQL(query, new String[]{user_id+"",idea_id+""});
+
+    }
+
+    public void denyRequest(int user_id, int idea_id) {
+        String query = "DELETE FROM requesters WHERE requester =? AND idea =? ";
+        db.execSQL(query, new String[]{user_id+"",idea_id+""});
+    }
+
+
+    public void removeUserAccess(int user_id, int idea_id) {
+        String query = "DELETE FROM contributors WHERE contributor = ? AND idea = ?";
+        db.execSQL(query, new String[]{user_id+"",idea_id+""});
+    }
+
+    public Idea getIdea(int idea_id) {
+        String query = "SELECT * FROM idea WHERE id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{"" + idea_id});
+        if (cursor.moveToNext()) {
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String shortDescription = cursor.getString(cursor.getColumnIndex("short_description"));
+            String fullDescription = cursor.getString(cursor.getColumnIndex("full_description"));
+            int votes = cursor.getInt(cursor.getColumnIndex("votes"));
+            String tag = cursor.getString(cursor.getColumnIndex("tag"));
+            int owner = cursor.getInt(cursor.getColumnIndex("owner"));
+
+            Idea idea = new Idea(idea_id,title,shortDescription,fullDescription,tag,votes,owner);
+            cursor.close();
+            return idea;
+        }
+        cursor.close();
+        return null;
+    }
+
+    public ArrayList<Comment> getIdeaComments(int idea_id) {
+        ArrayList<Comment> comments = new ArrayList<>();
+        String query = "SELECT * FROM comment WHERE idea = ?";
+        Cursor cursor = db.rawQuery(query,new String[]{idea_id+""});
+        while (cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int user_id = cursor.getInt(cursor.getColumnIndex("user"));
+            String description = cursor.getString(cursor.getColumnIndex("description"));
+            comments.add(new Comment(id,user_id,idea_id,description));
+        }
+        cursor.close();
+        return comments;
+    }
+
+    public void comment(int idea_id, int user_id, String comment) {
+        String query = "INSERT INTO comment (user,idea, description) VALUES(?,?,?)";
+        db.execSQL(query, new String[]{user_id+"",idea_id+"",comment});
+    }
+
+    public ArrayList<Idea> getContributionIdeas(int user_id) {
+        ArrayList<Idea> ideas = new ArrayList<>();
+        String query = "SELECT * FROM contributors WHERE contributor = ?";
+        Cursor cursor = db.rawQuery(query,new String[]{user_id+""});
+        while (cursor.moveToNext()){
+            int idea_id = cursor.getInt(cursor.getColumnIndex("idea"));
+            ideas.add(getIdea(idea_id));
+        }
+        cursor.close();
+        return ideas;
+    }
 }

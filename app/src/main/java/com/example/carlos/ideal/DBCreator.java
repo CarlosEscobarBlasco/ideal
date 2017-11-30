@@ -32,6 +32,12 @@ public class DBCreator extends SQLiteOpenHelper {
             "FOREIGN KEY(contributor) REFERENCES user(id)," +
             "FOREIGN KEY(idea) REFERENCES idea(id));";
 
+    private String reqQuery =  "CREATE TABLE requesters (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "requester INTEGER," +
+            "idea INTEGER," +
+            "FOREIGN KEY(requester) REFERENCES user(id)," +
+            "FOREIGN KEY(idea) REFERENCES idea(id));";
+
     private String votesQuery =  "CREATE TABLE votes (id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "voter INTEGER," +
             "idea INTEGER," +
@@ -39,14 +45,16 @@ public class DBCreator extends SQLiteOpenHelper {
             "FOREIGN KEY(voter) REFERENCES user(id)," +
             "FOREIGN KEY(idea) REFERENCES idea(id));";
 
+    private String commentQuery =  "CREATE TABLE comment (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "user INTEGER," +
+            "idea INTEGER," +
+            "description TEXT," +
+            "FOREIGN KEY(user) REFERENCES user(id)," +
+            "FOREIGN KEY(idea) REFERENCES idea(id));";
+
     private String createRootUser = "INSERT INTO user(name,email,password,description)" +
             "VALUES(\"root\",\"root@mail.com\",\"password\",\"description\")";
 
-
-    private String sqlDropTable1 = "DROP TABLE IF EXISTS user;";
-    private String sqlDropTable2 = "DROP TABLE IF EXISTS idea;";
-    private String sqlDropTable3 = "DROP TABLE IF EXISTS contributors;";
-    private String sqlDropTable4 = "DROP TABLE IF EXISTS votes;";
 
     public DBCreator(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -57,20 +65,33 @@ public class DBCreator extends SQLiteOpenHelper {
         db.execSQL(sqlCreate);
         db.execSQL(ideaQuery);
         db.execSQL(contQuery);
+        db.execSQL(reqQuery);
         db.execSQL(votesQuery);
         db.execSQL(createRootUser);
+        db.execSQL(commentQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        String sqlDropTable1 = "DROP TABLE IF EXISTS user;";
         db.execSQL(sqlDropTable1);
+        String sqlDropTable2 = "DROP TABLE IF EXISTS idea;";
         db.execSQL(sqlDropTable2);
+        String sqlDropTable3 = "DROP TABLE IF EXISTS contributors;";
         db.execSQL(sqlDropTable3);
+        String sqlDropTable4 = "DROP TABLE IF EXISTS votes;";
         db.execSQL(sqlDropTable4);
+        String sqlDropTable5 = "DROP TABLE IF EXISTS requesters;";
+        db.execSQL(sqlDropTable5);
+        String sqlDropTable6 = "DROP TABLE IF EXISTS comment;";
+        db.execSQL(sqlDropTable6);
+
         db.execSQL(sqlCreate);
         db.execSQL(ideaQuery);
         db.execSQL(contQuery);
+        db.execSQL(reqQuery);
         db.execSQL(votesQuery);
+        db.execSQL(commentQuery);
         db.execSQL(createRootUser);
     }
 }

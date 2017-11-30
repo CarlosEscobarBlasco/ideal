@@ -82,8 +82,8 @@ public class MyIdeasActivity extends AppCompatActivity {
 
             @Override
             public void input(final Object input, View view, int position) {
-                LinearLayout layout = view.findViewById(R.id.row);
-                layout.setBackgroundColor(position%2==0? ResourcesCompat.getColor(getResources(), R.color.white, null):ResourcesCompat.getColor(getResources(), R.color.lightGrey, null));
+//                LinearLayout layout = view.findViewById(R.id.row);
+//                layout.setBackgroundColor(position%2==0? ResourcesCompat.getColor(getResources(), R.color.white, null):ResourcesCompat.getColor(getResources(), R.color.lightGrey, null));
                 TextView rowTextView = view.findViewById(R.id.rowTextTitle);
                 TextView shortDescription = view.findViewById(R.id.rowTextShortDescription);
                 rowTextView.setText(((Idea) input).getTitle());

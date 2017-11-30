@@ -20,14 +20,29 @@ import com.example.carlos.ideal.R;
 
 public class EditIdeaActivity extends AppCompatActivity {
 
+    int idea_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_and_modify_idea);
+        idea_id = getIntent().getExtras().getInt("idea_id");
         initSpinner();
         fillField();
         editIdeaButton();
+        usersAccessButton();
         initToolbar("Edit idea");
+    }
+
+    private void usersAccessButton() {
+        Button accessButton = findViewById(R.id.accessButton);
+        accessButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditIdeaActivity.this, UsersAccessActivity.class);
+                intent.putExtra("idea_id",idea_id);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initToolbar(String title) {
@@ -41,7 +56,7 @@ public class EditIdeaActivity extends AppCompatActivity {
     private void fillField() {
         DBController dbController = DBController.getInstance(getApplicationContext());
 
-        Idea idea = dbController.getIdeaInformation(getIntent().getExtras().getInt("idea_id"));
+        Idea idea = dbController.getIdeaInformation(idea_id);
         EditText titleField = findViewById(R.id.IdeaTitle);
         titleField.setText(idea.getTitle());
 

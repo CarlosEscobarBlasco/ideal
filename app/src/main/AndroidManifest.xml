@@ -9,14 +9,13 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
-        <activity android:name=".activities.LogInActivity" >
+        <activity android:name=".activities.LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.CreateIdeaActivity" />
         <activity android:name=".activities.EditIdeaActivity" />
@@ -24,6 +23,15 @@
         <activity android:name=".activities.MyIdeasActivity" />
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".activities.EditProfileActivity" />
+        <activity
+            android:name=".activities.InsideIdea"
+            android:label="@string/title_activity_inside_idea"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.IdeaWithoutAccess" />
+        <activity
+            android:name=".activities.UsersAccessActivity"
+            android:label="@string/title_activity_users_access"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
